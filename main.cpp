@@ -51,6 +51,22 @@ char* generateImagePath(const char* path1, const char* image, const char* path2)
     return result;
 }
 
+void clearWindow(){
+
+    bar(0,0,1500,700);
+
+}
+
+void loadingScreen(char* playerCharacter, char* machineCharacter, int delay, int windowX, int windowY){
+
+
+    readimagefile("./assets/x.jpg", windowX / 2 - 30, windowY / 2 - 30, windowX/ 2 + 30, windowY / 2 + 30);
+    readimagefile(generateImagePath("./assets/", machineCharacter, ".jpg"), (windowX / 2) + 327 - 180, windowY / 2 - 180,(windowX / 2) + 327 + 180, windowY / 2 + 180);
+    readimagefile(generateImagePath("./assets/", playerCharacter, ".jpg"), (windowX / 2) - 327 - 180, windowY / 2 - 180,(windowX / 2) - 327 + 180, windowY / 2 + 180);
+    readimagefile("./assets/loading.jpg", 0, windowY / 2 + 210, 1500, windowY);
+
+}
+
 int main(void)
 {
 
@@ -91,9 +107,11 @@ int main(void)
 
     printf("%s\n", generateImagePath("./assets/", machineCharacter.name, ".jpg"));
 
-    //1173 310 coordenadas
+    //1173 310 coordenada
     readimagefile("./assets/x.jpg", windowX / 2 - 30, windowY / 2 - 30, windowX/ 2 + 30, windowY / 2 + 30);
-    readimagefile(generateImagePath("./assets/", machineCharacter.name, ".jpg"), 1173 - 180, windowY / 2 - 180, 1173 + 180, windowY / 2 + 180);
+    readimagefile(generateImagePath("./assets/", machineCharacter.name, ".jpg"), (windowX / 2) + 327 - 180, windowY / 2 - 180,(windowX / 2) + 327 + 180, windowY / 2 + 180);
+    readimagefile("./assets/charactersSelect.jpg", (windowX / 2) - 327 - 230, (windowY / 2) - 230,(windowX / 2) - 327 + 230, (windowY / 2 + 90) + 230);
+    readimagefile("./assets/selectHeader.jpg", 0, 15, 1500, 105);
     while(1){
 
         x = mousex();
@@ -144,11 +162,15 @@ int main(void)
     strcpy(playerCharacter.name, characters[playerSelect].name);
     strcpy(playerCharacter.weapon, characters[playerSelect].weapon);
 
-    readimagefile(generateImagePath("./assets/", playerCharacter.name, ".jpg"),400, 400, 10, 10);
 
+    clearWindow();
+    loadingScreen( playerCharacter.name, machineCharacter.name, 200, windowX, windowY);
     while(!kbhit()){
 
+
+
     }
+
 
     closegraph();
 
