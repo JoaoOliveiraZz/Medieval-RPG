@@ -64,7 +64,7 @@ int main(void)
     int dodgeDice, attackDice, damageDice;
 
     //actions
-    int keyPressed, playerSelect, action = 5;
+    int keyPressed, playerSelect, action = 5, defenceLimit = 0;
 
     //turns
     int turn = 0, machineDecision, attackIncrement;
@@ -195,6 +195,10 @@ int main(void)
                 if(machineDecision == 2 && (machineCharacter.heal < 1 || machineCharacter.health > characters[machine].health / 2)){
                     machineDecision = generateRandomNumber(2);
                 }
+                if(machineDecision == 1 && defenceLimit > 2){
+                    defenceLimit = 0;
+                    machineDecision = 0;
+                }
 
                 switch(machineDecision){
                     case 0:
@@ -209,6 +213,7 @@ int main(void)
                         break;
                     case 1:
                         machineCharacter.armor += 5;
+                        defenceLimit++;
                         battleLog(windowX, windowY, "Armadura inimiga aumentou em 5 pontos");
                         break;
                     case 2:
