@@ -70,7 +70,8 @@ int main(void)
     int turn = 0, machineDecision, attackIncrement;
 
 
-    initwindow(1500, 700, "RPG MEDIEVAL", 0, 0);
+    initwindow(windowX, windowY, "RPG MEDIEVAL", 0, 0);
+
 
     while(1){
 
@@ -80,10 +81,10 @@ int main(void)
 
 
         struct character characters[4] = {
-            {"Barbaro", "Machado", 8, 14, 50, 18},
-            {"Arqueiro", "Arco longo", 6, 12, 40, 14},
-            {"Ladino", "Adaga", 8, 8, 40, 10},
-            {"Paladino", "Espada longa", 6, 16, 50, 18}
+            {"Barbaro", "Machado", 8, 14, 30, 18},
+            {"Arqueiro", "Arco longo", 6, 12, 20, 14},
+            {"Ladino", "Adaga", 8, 8, 20, 10},
+            {"Paladino", "Espada longa", 6, 16, 30, 18}
         };
 
         int machine = generateRandomNumber(4);
@@ -195,7 +196,7 @@ int main(void)
                 if(machineDecision == 2 && (machineCharacter.heal < 1 || machineCharacter.health > characters[machine].health / 2)){
                     machineDecision = generateRandomNumber(2);
                 }
-                if(machineDecision == 1 && defenceLimit > 2){
+                if(machineDecision == 1 && defenceLimit >= 1){
                     defenceLimit = 0;
                     machineDecision = 0;
                 }
@@ -218,7 +219,7 @@ int main(void)
                         break;
                     case 2:
                         machineCharacter.heal--;
-                        machineCharacter.health += 10;
+                        machineCharacter.health += 7;
                         battleLog(windowX, windowY, "O inimigo usou uma poção de cura");
                         break;
                 }
@@ -277,7 +278,7 @@ int main(void)
                         break;
                     case 1:
                         playerCharacter.heal--;
-                        playerCharacter.health += 10;
+                        playerCharacter.health += 7;
                         battleLog(windowX, windowY,"Voce usou 1 poção de cura");
                         break;
                     case 2:
@@ -369,6 +370,9 @@ void finalScreen(int windowX, int windowY, bool win){
     }else{
         outtextxy(windowX / 2 - 275, windowY / 2, "Que pena, você perdeu...");
     }
+
+        outtextxy(windowX / 2 - 275, windowY / 2 + 100, "R - Tentar novamente");
+        outtextxy(windowX / 2 - 275, windowY / 2 + 150, "Esc - Sair");
 }
 
 void cleanBattleStats(int windowX,int windowY){
